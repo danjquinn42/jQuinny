@@ -58,6 +58,30 @@ foo
 ```
 
 ###jQuinny.ajax(options)
+sends a request to specified url
+
+`jQuinny.ajax()` takes a javascript options hash with keys for a HTTP request.
+
+####options with build-in defaults:
+| Option              | default value   | object type  |
+| ------------------- |:---------------:| ------------:|
+| async:              | true            | boolean      |
+| contentType:        | 'application/x-www-form-urlencoded; charset=UTF-8'                          | string       |
+| converters:         | {"* text": window.String,
+  "text html": true,
+  "text json": jQuery.parseJSON,
+  "text xml": jQuery.parseXML
+}                                       | options hash |
+| data:               | {}              | POJO         |
+| error:              | () => {}        | callback     |
+| global:             | true            | boolean      |
+| headers:            | {}              | POJO         |
+| method:             | 'GET'           | string       |
+| statusCode:         | {}              | POJO         |
+| success:            | () => {}        | callback     |
+| type:               | 'html'          | string       |
+| url:                | document.URL    | string       |
+
 
 ##DOMNodeCollection methods
 
