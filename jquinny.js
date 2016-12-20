@@ -42,20 +42,19 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	// import DOMNodeCollection from './dom_node_collection';
-	const DOMNodeCollection = __webpack_require__(1);
+	import DOMNodeCollection from './dom_node_collection.js';
 	
 	let functionQueue = [];
 	
-	const $q = (selector) => {
+	const jQuinny = (selector) => {
 	  switch (typeof selector) {
 	    case "function":
 	      return addToFunctionQueue(selector);
 	    case "string":
 	      const selected = document.querySelectorAll(selector);
-	      return Array.prototype.slice.call(selected);
+	      return new DOMNodeCollection(selected);
 	    case "object":
 	      if (selector instanceof HTMLElement){
 	        return new DOMNodeCollection([selector]);
@@ -63,15 +62,22 @@
 	  }
 	};
 	
+	const $ = jQuinny;
+	
 	const addToFunctionQueue = (functionForQueue) => {
-	  functionQueue.push(functionForQueue);
 	  if (document.readyState === "complete") {
-	    functionQueue.each((queuedFunction) => queuedFunction());
-	    functionQueue = [];
+	    functionQueue();
+	  } else {
+	    functionQueue.push(functionForQueue);
 	  }
 	};
 	
-	$q.extend = ( firstPojo, ...otherPojos) => {
+	document.addEventListener('DOMContentLoaded', () => {
+	  functionQueue.each((queuedFunction) => queuedFunction());
+	  functionQueue = [];
+	});
+	
+	jQuinny.extend = ( firstPojo, ...otherPojos) => {
 	  otherPojos.forEach( pojo => {
 	    for(let prop of pojo){
 	      firstPojo[prop] = pojo[prop];
@@ -81,9 +87,9 @@
 	};
 	
 	
-	$q.ajax = (options) => {
+	jQuinny.ajax = (options) => {
 	  const defaultAjaxOptions = ajaxDefaults;
-	  options = $q.extend(defaultAjaxOptions, options);
+	  options = jQuinny.extend(defaultAjaxOptions, options);
 	  options.method = options.method.toUpperCase();
 	
 	  if (options.method === 'GET') {
@@ -137,137 +143,8 @@
 	};
 	
 	
-	window.$q = $q;
-	module.exports = $q;
-
-
-/***/ },
-/* 1 */
-/***/ function(module, exports) {
-
-	
-	class DOMNodeCollection {
-	  constructor(nodes) {
-	    this.nodes = nodes;
-	  }
-	
-	  first() {
-	    return this.nodes[0];
-	  }
-	
-	  last() {
-	    return this.nodes[this.nodes.length - 1];
-	  }
-	
-	  each(callback) {
-	    this.node.forEach(callback);
-	  }
-	
-	  map(callback) {
-	    this.node.map(callback);
-	  }
-	
-	  html(html) {
-	    if (typeof html === 'string') {
-	      this.each(node => {
-	        node.innerHTML = html;
-	      });
-	    } else {
-	      return this.nodes.first().innerHTML;
-	    }
-	  }
-	
-	  empty() {
-	    this.html('');
-	  }
-	
-	  isEmpty() {
-	    return (this.nodes.length === 0);
-	  }
-	
-	
-	  append(collection) {
-	    if (this.isEmpty()) return;
-	
-	    if (typeof collection === 'object' &&
-	      !(collection instanceof DOMNodeCollection)) {
-	        collection = window.$q(collection);
-	    }
-	
-	    if (typeof collection === 'string') {
-	      this.each( node => { node.innerHTML += collection;});
-	    } else if (collection instanceof DOMNodeCollection) {
-	      this.each(node => {
-	        collection.each(collectionNode => {
-	          node.appendChild(collectionNode.cloneNode(true));
-	        });
-	      });
-	    }
-	  }
-	
-	  attr(attributeName, value) {
-	    if (arguments.length === 1) {
-	      return this.first().getAttribute(attributeName);
-	    } else if (arguments.length === 2) {
-	      this.each( node => node.setAttribute(attributeName, value));
-	    }
-	  }
-	
-	  children() {
-	    let children = [];
-	    this.each(node => {
-	      children = children.concat(Array.from(node.children));
-	    });
-	    return new DOMNodeCollection(children);
-	  }
-	
-	  parent() {
-	    const parents = [];
-	    this.each(node => parents.push(node.parentNode));
-	    return new DOMNodeCollection(parents);
-	  }
-	
-	  find(selector) {
-	    let found = [];
-	    this.each(node => {
-	      const nodeList = node.querySelectorAll(selector);
-	      found = found.concat(Array.from(nodeList));
-	    });
-	    return new DOMNodeCollection(found);
-	  }
-	
-	  remove(){
-	    this.each(node => node.remove());
-	  }
-	
-	  addClass(cssClass) {
-	    this.each(node => node.classList.add(cssClass));
-	  }
-	
-	  removeClass(cssClass) {
-	    this.each(node => node.classList.remove(cssClass));
-	  }
-	
-	  on(event, callback) {
-	    this.each(node =>{
-	      node.addEventListener(event, callback);
-	      node[event].push(callback);
-	    });
-	  }
-	
-	  off(eventName) {
-	    this.each(node =>{
-	      if (node[event]) {
-	        node[event].forEach((callback) => {
-	          node.removeEventListener(eventName, callback);
-	        });
-	      }
-	      node[event] = [];
-	    });
-	  }
-	}
-	
-	module.exports = DOMNodeCollection;
+	window.jQuinny = jQuinny;
+	export default jQuinny;
 
 
 /***/ }
