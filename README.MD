@@ -66,8 +66,7 @@ sends a request to specified url
 | Option              | default value   | object type  |
 | ------------------- |:---------------:| ------------:|
 | async:              | true            | boolean      |
-| contentType:        | 'application/x-www-form-urlencoded; charset=UTF-8'                          | string       |
-| converters:         | {"* text": window.String, /n "text html": true, /n "text json": jQuery.parseJSON, "text xml": jQuery.parseXML}                        | options hash |
+| contentType:        | 'application/x-www-form-urlencoded; charset=UTF-8'                    | string       |
 | data:               | {}              | POJO         |
 | error:              | () => {}        | callback     |
 | global:             | true            | boolean      |
