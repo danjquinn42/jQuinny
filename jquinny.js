@@ -66,24 +66,24 @@
 	
 	const addToFunctionQueue = (functionForQueue) => {
 	  if (document.readyState === "complete") {
-	    functionQueue();
+	    functionForQueue();
 	  } else {
 	    functionQueue.push(functionForQueue);
 	  }
 	};
 	
 	document.addEventListener('DOMContentLoaded', () => {
-	  functionQueue.each((queuedFunction) => queuedFunction());
+	  functionQueue.forEach((queuedFunction) => queuedFunction());
 	  functionQueue = [];
 	});
 	
-	jQuinny.extend = ( firstPojo, ...otherPojos) => {
-	  otherPojos.forEach( pojo => {
-	    for(let prop of pojo){
-	      firstPojo[prop] = pojo[prop];
+	jQuinny.extend = ( target, ...objects) => {
+	  objects.forEach( (pojo) => {
+	    for (let prop in pojo){
+	      target[prop] = pojo[prop];
 	    }
 	  });
-	  return firstPojo;
+	  return target;
 	};
 	
 	
