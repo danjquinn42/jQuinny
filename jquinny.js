@@ -49,7 +49,7 @@
 	
 	let functionQueue = [];
 	
-	const $l = (selector) => {
+	const $q = (selector) => {
 	  switch (typeof selector) {
 	    case "function":
 	      return addToFunctionQueue(selector);
@@ -71,7 +71,7 @@
 	  }
 	};
 	
-	$l.extend = ( firstPojo, ...otherPojos) => {
+	$q.extend = ( firstPojo, ...otherPojos) => {
 	  otherPojos.forEach( pojo => {
 	    for(let prop of pojo){
 	      firstPojo[prop] = pojo[prop];
@@ -81,9 +81,9 @@
 	};
 	
 	
-	$l.ajax = (options) => {
+	$q.ajax = (options) => {
 	  const defaultAjaxOptions = ajaxDefaults;
-	  options = $l.extend(defaultAjaxOptions, options);
+	  options = $q.extend(defaultAjaxOptions, options);
 	  options.method = options.method.toUpperCase();
 	
 	  if (options.method === 'GET') {
@@ -137,8 +137,8 @@
 	};
 	
 	
-	window.$l = $l;
-	module.exports = $l;
+	window.$q = $q;
+	module.exports = $q;
 
 
 /***/ },
@@ -191,7 +191,7 @@
 	
 	    if (typeof collection === 'object' &&
 	      !(collection instanceof DOMNodeCollection)) {
-	        collection = window.$l(collection);
+	        collection = window.$q(collection);
 	    }
 	
 	    if (typeof collection === 'string') {
