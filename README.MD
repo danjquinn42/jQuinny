@@ -11,8 +11,6 @@ returns a DOMNodeCollection object
 When passed a string or a javascript object `jQuinny()` searches through the DOM and returns an array-like jQuinny object that references those objects.
 
 ```html
-//example
-
 <ul>
   <li>1</li>
   <li>2</li>
