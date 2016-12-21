@@ -107,7 +107,7 @@ replaces the inner HTML of each element with an empty string
 returns the number of elements in the collection
 
 ###.append(object)
-converts an object into a jQuinny then adds it as a child of each element in the original collection
+ensures the object is a jQuinny object then adds it as a child of each element in the original collection
 
 ###.append(string)
 appends the string to the inner HTML of each element in the collection
