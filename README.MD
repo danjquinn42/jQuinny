@@ -8,7 +8,7 @@ jQuinny is a lightweight DOM manipulation API inspired by jQuery.
 ### jQuinny(selector)
 returns a DOMNodeCollection object
 
-When passed a string or a javascript object `jQuinny()` searches through the DOM and returns an array-like DOM node collection object that references those objects.
+When passed a string or a javascript object `jQuinny()` searches through the DOM and returns an array-like jQuinny object that references those objects.
 
 ```html
 //example
@@ -78,17 +78,17 @@ performs an HTTP (ajax) request - asynchronous by default.
 | url:                | document.URL    | string       |
 
 
-##DOM Node Collection methods
+##jQuinny object methods
 
 ###.nodes
 an array of DOM elements
 
 ###.first()
-returns the first element of a jQuinny DOM node collection
+returns the first element of a jQuinny object
 
 
 ###.last()
-returns the last element in a DOM node collection
+returns the last element in a jQuinny object
 
 ###.each(callback)
 performs the callback on each element in the collection and returns the original object
@@ -109,7 +109,7 @@ replaces the inner HTML of each element with an empty string
 returns the number of elements in the collection
 
 ###.append(object)
-converts an object into a DOM node collection then adds it as a child of each element in the original collection
+converts an object into a jQuinny then adds it as a child of each element in the original collection
 
 ###.append(string)
 appends the string to the inner HTML of each element in the collection
@@ -124,7 +124,7 @@ sets the specified attribute and value on each element in the collection
 returns the immediate children of each element in the collection
 
 ###.parent()
-returns a collection of the parent nodes of each element in the original collection
+returns a collection of the parent nodes of each element in the original jQuinny object
 
 ###.find(selector)
 searches through the elements in the collection and creates a new jQuinny object matching the selector. The selector is of the same type passed to jQuinny(selector)
@@ -143,4 +143,3 @@ applies a DOM event listener to each node in the collection and calls the callba
 
 ###.off(event)
 removes all DOM event listeners matching the specified event from each node in the collection
- 
