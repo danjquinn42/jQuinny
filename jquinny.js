@@ -131,11 +131,6 @@
 	    method: 'GET',
 	    url: document.URL,
 	    async: true,
-	    converters: {"* text": window.String,
-	      "text html": true,
-	      "text json": jQuery.parseJSON,
-	      "text xml": jQuery.parseXML
-	    },
 	    success: () => {},
 	    error: () => {},
 	    data: {},
@@ -166,17 +161,20 @@
 	  }
 	
 	  each(callback) {
-	    this.node.forEach(callback);
+	    this.nodes.forEach(callback);
+	    return this.nodes;
 	  }
 	
 	  map(callback) {
-	    this.node.map(callback);
+	    let newNodes = window.jQuinny({}, this.nodes);
+	    newNodes = this.newNodes.map(callback);
+	    return new DOMNodeCollection(newNodes);
 	  }
 	
-	  html(html) {
-	    if (typeof html === 'string') {
+	  html(htmlString) {
+	    if (typeof htmlString === 'string') {
 	      this.each(node => {
-	        node.innerHTML = html;
+	        node.innerHTML = htmlString;
 	      });
 	    } else {
 	      return this.nodes.first().innerHTML;
@@ -187,13 +185,12 @@
 	    this.html('');
 	  }
 	
-	  isEmpty() {
-	    return (this.nodes.length === 0);
+	  length() {
+	    return this.nodes.length;
 	  }
 	
-	
 	  append(collection) {
-	    if (this.isEmpty()) return;
+	    if (this.length === 0) return;
 	
 	    if (typeof collection === 'object' &&
 	      !(collection instanceof DOMNodeCollection)) {
@@ -242,8 +239,8 @@
 	    return new DOMNodeCollection(found);
 	  }
 	
-	  remove(){
-	    this.each(node => node.remove());
+	  remove(selector){
+	    this.find(selector).each(node => node.remove());
 	  }
 	
 	  addClass(cssClass) {
