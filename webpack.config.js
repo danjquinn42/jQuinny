@@ -1,5 +1,5 @@
 module.exports = {
-  entry: "./lib/main.js",
+  entry: "./scripts/main.js",
   output: {
     path: __dirname,
     filename: "jquinny.js"

@@ -2,7 +2,7 @@
 
 jQuinny is a lightweight DOM manipulation API inspired by jQuery.
 
-
+To get started 
 
 ##jQuinny and $
 `$()` is an short-hand alias for `jQuinny()` and they can be used interchangeably. No methods are directly defined on `$()` so as to avoid conflict with other libraries. Prefer `jQuinny()`.
