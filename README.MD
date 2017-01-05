@@ -2,13 +2,15 @@
 
 jQuinny is a lightweight DOM manipulation API inspired by jQuery.
 
+
+
 ##jQuinny and $
 `$()` is an short-hand alias for `jQuinny()` and they can be used interchangeably. No methods are directly defined on `$()` so as to avoid conflict with other libraries. Prefer `jQuinny()`.
 
 ### jQuinny(selector)
 returns a DOMNodeCollection object
 
-When passed a string or a javascript object `jQuinny()` searches through the DOM and returns an array-like jQuinny object that references those objects.
+When passed a string or a JavaScript object `jQuinny()` searches through the DOM and returns an array-like jQuinny object that references those objects.
 
 ```html
 <ul>
@@ -27,7 +29,7 @@ adds a function to a queue until document loads.
 
 When passed a function `jQuinny()` will immediately call that function if the document has loaded. If the document has not loaded `jQuinny()` will add the function to a queue of functions. All members of the function queue will be called when the document has loaded and the queue will be cleared.
 
-```javascript
+```JavaScript
 
 jQuinny(() => console.log("Print after load"));
 jQuinny(() => console.log("Print second after load"));
@@ -45,7 +47,7 @@ merges two or more objects together into the first argument.
 
 When two or more object arguments are supplied to jQuinny.extend(), properties from each of the objects are added to the target object. Arguments that are null or undefined are ignored.
 
-```javascript
+```JavaScript
 let foo = { a: 10, b: 20, c: 40};
 let bar = { a: "ten", b: "twenty", d: "eighty"};
 let baz = { b: "XX" };
@@ -58,7 +60,7 @@ foo
 ###jQuinny.ajax(options)
 performs an HTTP (ajax) request - asynchronous by default.
 
-`jQuinny.ajax()` takes a javascript options hash with keys for a HTTP request.
+`jQuinny.ajax()` takes a JavaScript options hash with keys for a HTTP request.
 
 ####options with build-in defaults:
 | Option              | default value   | type      |
