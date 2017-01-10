@@ -2,7 +2,8 @@
 
 jQuinny is a lightweight DOM manipulation API inspired by jQuery.
 
-To get started 
+##Getting Started
+Download jquinny.js and include it in your project directory. Import or require jQuinny in each file which uses the library and run with webpack.
 
 ##jQuinny and $
 `$()` is an short-hand alias for `jQuinny()` and they can be used interchangeably. No methods are directly defined on `$()` so as to avoid conflict with other libraries. Prefer `jQuinny()`.
